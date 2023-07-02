@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  </head>
+  <body>
+    <style>
+     body{
+         background-image: url('weather binge.png');
+         background-repeat: no-repeat;
+         background-attachment: fixed;
+         background-size:cover;
+     }
+    </style>
+    <div class="container text-center mt-5">
+      
+        <h1><b>Welcome To Weather API</b></h1>
+      
+      <p>This is a realtime weather application</p>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          
+            <div class="mb-3">
+              <label for="city" class="form-label"><b><h5>City</h5></b></label>
+              <input type="text" class="form-control" id="city">
+            </div>
+            <input type="button"  value="fetch-weather" class="btn btn-primary" onclick="handleBtnClick()">
+          
+        </div>
+      </div>
+    </div>
+    
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-lg-6">
+          <img src="" id="icon" >
+          <h2 id="weather-condition"></h2>
+          <h1 id="temp"></h1>
+        </div>
+        <div class="col-lg-6">
+           <h2 id="city-name"></h2>
+           <h1 id="state-country"></h1>
+        </div>
+      </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+ 
+  <script>
+    function fetchWeather(city) {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", `http://api.weatherapi.com/v1/current.json?key=b5fe92a01fbf49e29ac63738232506&q=${city}&aqi=no`);
+      
+      xhr.onreadystatechange=()=> {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          const weather = JSON.parse(xhr.responseText);
+          console.log(weather.current.condition.text,weather.current.condition.icon,weather.current.temp_c,weather.current.temp_f);
+          var img=document.getElementById('icon');
+          img.setAttribute("src", "http:"+weather.current.condition.icon);
+          var weatherCondition=document.getElementById('weather-condition');
+          weatherCondition.innerHTML=weather.current.condition.text;
+          var temp=document.getElementById('temp');
+          temp.innerHTML=`${weather.current.temp_c}&deg;C |${weather.current.temp_f}&deg;F`;
+          console.log(weather.location.name);
+          document.getElementById('city-name').innerHTML=weather.location.name;
+          document.getElementById('state-country').innerHTML=`${weather.location.region}, ${weather.location.country}`;
+        }
+      }
+      xhr.send();
+    }
+     fetchWeather('Indore')
+
+    function handleBtnClick(city) {
+      var city=document.getElementById('city').value;
+      fetchWeather(city)
+      
+    }
+         
+    
+  </script>
+  </body>
+  </html>
