@@ -54,7 +54,7 @@
   <script>
     function fetchWeather(city) {
       var xhr = new XMLHttpRequest();
-      xhr.open("GET", `http://api.weatherapi.com/v1/current.json?key=b5fe92a01fbf49e29ac63738232506&q=${city}&aqi=no`);
+      xhr.open("GET", `https://api.weatherapi.com/v1/current.json?key=9e6bf9ab56bb415892e121944252306&q=${city}&aqi=no`);
       
       xhr.onreadystatechange=()=> {
         if (xhr.readyState == 4 && xhr.status == 200) {
