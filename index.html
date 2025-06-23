@@ -61,7 +61,7 @@
           const weather = JSON.parse(xhr.responseText);
           console.log(weather.current.condition.text,weather.current.condition.icon,weather.current.temp_c,weather.current.temp_f);
           var img=document.getElementById('icon');
-          img.setAttribute("src", "http:"+weather.current.condition.icon);
+          img.setAttribute("src", "https:"+weather.current.condition.icon);
           var weatherCondition=document.getElementById('weather-condition');
           weatherCondition.innerHTML=weather.current.condition.text;
           var temp=document.getElementById('temp');
